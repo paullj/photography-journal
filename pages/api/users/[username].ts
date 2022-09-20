@@ -2,6 +2,8 @@ import { withApiAuth } from "@supabase/auth-helpers-nextjs";
 import { UserWithPosts } from "@/models/user";
 import type { NextApiHandler } from "next";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/database";
+import { placeholderImageUrl } from "@/providers/cloudinary";
 
 const selectQuery = `
 		id,
@@ -26,7 +28,10 @@ const selectQuery = `
 		)
 	`;
 
-const getUser = async (supabaseClient: SupabaseClient, username: string) => {
+const getUser = async (
+	supabaseClient: SupabaseClient<Database>,
+	username: string
+) => {
 	const query = supabaseClient
 		.from("users")
 		.select(selectQuery)
@@ -35,14 +40,26 @@ const getUser = async (supabaseClient: SupabaseClient, username: string) => {
 			foreignTable: "posts",
 			ascending: false,
 		})
-		.maybeSingle();
+		.single();
 
 	const { status, statusText, data } = await query;
+
+	let user = data as UserWithPosts;
+	user = {
+		...user,
+		posts: user.posts.map((post) => ({
+			...post,
+			images: post.images!.map((image) => ({
+				...image,
+				placeholderUrl: placeholderImageUrl(image.url),
+			})),
+		})),
+	};
 
 	return {
 		status,
 		statusText,
-		user: data as UserWithPosts,
+		user,
 	};
 };
 

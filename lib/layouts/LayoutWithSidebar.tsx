@@ -25,18 +25,16 @@ const LayoutWithSidebar = ({ children }: PropsWithChildren) => {
 				<main className="flex-1 w-full">
 					<div className='grid gap-4 md:grid-rows-[auto,1fr] md:grid-cols-[auto,1fr] grid-cols-1'>
 						<div className='order-1 md:row-span-2 md:order-0'>
-							<div className='flex px-1 py-2 space-x-2 md:flex-col'>
-								<div className=''>
-									<Link href="/">
-										<a>
-											<Button>
-												<ResetIcon></ResetIcon>
-											</Button>
-										</a>
-									</Link>
-								</div>
+							<div className='px-1 py-2 space-y-4 sm:space-y-12'>
+								<Link href="/">
+									<a>
+										<Button>
+											<ResetIcon></ResetIcon>
+										</Button>
+									</a>
+								</Link>
 								{sidebar ? (
-									<div className='sm:mt-12'>
+									<div className=''>
 										{sidebar.props.children}
 									</div>
 								) : null}
@@ -48,11 +46,7 @@ const LayoutWithSidebar = ({ children }: PropsWithChildren) => {
 						</div>
 
 						<div className='order-2 md:order-2'>
-							{body ? (
-								<div>
-									{body.props.children}
-								</div>
-							) : null}
+							{body ? body.props.children : null}
 						</div>
 					</div>
 				</main>

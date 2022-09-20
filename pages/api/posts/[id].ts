@@ -1,4 +1,5 @@
 import { PostData } from "@/models/post";
+import { placeholderImageUrl } from "@/providers/cloudinary";
 import { withApiAuth } from "@supabase/auth-helpers-nextjs";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { NextApiHandler } from "next";
@@ -39,12 +40,21 @@ const getPost = async (supabaseClient: SupabaseClient, id: string) => {
 		.order("post_order", {
 			foreignTable: "images",
 		})
-		.maybeSingle();
+		.single();
+
+	let post = data as PostData;
+	post = {
+		...post,
+		images: post.images!.map((image) => ({
+			...image,
+			placeholderUrl: placeholderImageUrl(image.url),
+		})),
+	};
 
 	return {
 		status,
 		statusText,
-		post: data as PostData,
+		post,
 	};
 };
 

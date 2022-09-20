@@ -2,6 +2,8 @@ import { withApiAuth } from "@supabase/auth-helpers-nextjs";
 import { PostData } from "@/models/post";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { NextApiHandler } from "next";
+import type { Database } from "@/database";
+import { placeholderImageUrl } from "@/providers/cloudinary";
 
 const selectQuery = `
 		id,
@@ -22,8 +24,8 @@ const selectQuery = `
 		)
 	`;
 
-const getPosts = async (supabaseClient: SupabaseClient) => {
-	const query = supabaseClient
+const getPostsQuery = async (supabaseClient: SupabaseClient<Database>) => {
+	return await supabaseClient
 		.from("posts")
 		.select(selectQuery)
 		.eq("upload_status", "done")
@@ -31,14 +33,22 @@ const getPosts = async (supabaseClient: SupabaseClient) => {
 		.order("created_at", {
 			ascending: false,
 		});
+};
 
-	const { status, error, statusText, data } = await query;
+const getPosts = async (supabaseClient: SupabaseClient<Database>) => {
+	const { status, error, statusText, data } = await getPostsQuery(
+		supabaseClient
+	);
 
-	return {
-		status,
-		statusText,
-		posts: data as PostData[],
-	};
+	const posts = (data as PostData[]).map((post) => ({
+		...post,
+		images: post.images!.map((image) => ({
+			...image,
+			placeholderUrl: placeholderImageUrl(image.url),
+		})),
+	}));
+
+	return { posts, status, statusText };
 };
 
 const handler: NextApiHandler = withApiAuth(

@@ -66,7 +66,7 @@ const PostPage: NextPageWithLayout<PostProps> = ({ id, status, title, images }) 
 				<title>{title}</title>
 			</Head>
 			{status === 'done' ? (
-				<div className=''>
+				<div className='space-y-4'>
 					{images.filter((_, i) => i > 0).map((image, i) => (
 						<LightboxContext.Consumer key={i}>
 							{({ openModal }) => (

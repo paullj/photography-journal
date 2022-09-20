@@ -10,22 +10,22 @@
 		"generate": "supabase gen types typescript --local > lib/database.t.ts"
 	},
 	"dependencies": {
-		"@headlessui/react": "^1.7.0",
+		"@headlessui/react": "^1.7.2",
 		"@radix-ui/react-icons": "^1.1.1",
-		"@supabase/auth-helpers-nextjs": "next",
-		"@supabase/auth-helpers-react": "next",
-		"@supabase/auth-helpers-shared": "next",
+		"@supabase/auth-helpers-nextjs": "0.4.0-next.2",
+		"@supabase/auth-helpers-react": "0.3.0-next.1",
+		"@supabase/auth-helpers-shared": "0.2.0-next.1",
 		"@supabase/supabase-js": "rc",
-		"cloudinary": "^1.31.0",
+		"cloudinary": "^1.32.0",
 		"cloudinary-build-url": "^0.2.4",
 		"date-fns": "^2.29.3",
 		"date-fns-tz": "^1.3.7",
 		"exifr": "^7.1.3",
 		"formidable": "^2.0.1",
-		"next": "12.2.5",
+		"next": "^12.3",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
-		"react-hook-form": "^7.34.2"
+		"react-hook-form": "^7.36.0"
 	},
 	"devDependencies": {
 		"@cld-apis/types": "^0.1.6",
@@ -33,7 +33,7 @@
 		"@types/node": "18.7.15",
 		"@types/react": "18.0.18",
 		"@types/react-dom": "18.0.6",
-		"autoprefixer": "^10.4.8",
+		"autoprefixer": "^10.4.11",
 		"eslint": "8.23.0",
 		"eslint-config-next": "12.2.5",
 		"postcss": "^8.4.16",

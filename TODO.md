@@ -6,6 +6,7 @@
   - [x] /@[user]: user page
   - [x] /@[user]/[id]: post page
 	  - [ ] add realtime to this page
+			- Potentially blocked by this https://github.com/supabase/realtime/issues/284
 	  - [x] add lightbox
 
 - new post
@@ -31,6 +32,6 @@
 - dark mode
 - lazy load images and load different resolutions
 
-Bugs
+## Bugs
 - image order is wrong
 - redirect to welcome page when login

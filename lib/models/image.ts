@@ -13,6 +13,7 @@ interface ImageMetadata {
 interface ImageData {
 	id?: string;
 	url: string;
+	placeholderUrl?: string;
 	width: number;
 	height: number;
 	altText?: string;

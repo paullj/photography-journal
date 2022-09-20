@@ -22,6 +22,15 @@ export const resizeImageUrl = ({
 		transformations: { resize: { width, height, type: "scale" } },
 	});
 
+export const placeholderImageUrl = (url: string) => {
+	return buildImageUrl(extractPublicId(url), {
+		transformations: {
+			resize: { height: 64, type: "scale" },
+			quality: 10,
+		},
+	});
+};
+
 cloudinary.v2.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,

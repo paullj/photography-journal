@@ -76,33 +76,31 @@ export const LightboxContextProvider = ({ children, images }: PropsWithChildren<
 									leave="ease-in duration-200"
 									leaveFrom="opacity-100 scale-100"
 									leaveTo="opacity-0 scale-95">
-									<Dialog.Panel className="flex h-full text-gray-500 transition-all transform ">
+
+									<Dialog.Panel className="relative flex h-full text-gray-500 transition-all transform ">
 										<div className="relative w-full h-full max-h-screen shadow-xl max-w-screen">
 											{images && images[index] ?
-												<Image src={images[index].url} alt={images[index].altText} width={images[index].width} height={images[index].height} layout="fill" objectFit='contain' /> :
+												<Image src={images[index].url} alt={images[index].altText} layout="fill" objectFit='contain' /> :
 												<></>
 											}
-										</div>
 
-										<div className='absolute bottom-0 right-0 z-20 flex p-2'>
-											<button onClick={previousImage} className="px-2">
-												<ArrowLeftIcon className='w-6 h-6' />
-											</button>
-											<div>
-												{index + 1}/{images?.length ?? 0}
+											<div className='absolute bottom-0 right-0 z-20 flex p-2'>
+												<button onClick={previousImage} className="px-2">
+													<ArrowLeftIcon className='w-6 h-6' />
+												</button>
+												<div className='w-12'>
+													{index + 1}/{images?.length ?? 0}
+												</div>
+												<button onClick={nextImage} className="px-2">
+													<ArrowRightIcon className='w-6 h-6' />
+												</button>
+												<button
+													type="button"
+													className="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+													onClick={closeModal}>
+													<Cross1Icon className='w-6 h-6' />
+												</button>
 											</div>
-											<button onClick={nextImage} className="px-2">
-												<ArrowRightIcon className='w-6 h-6' />
-											</button>
-										</div>
-
-										<div className="absolute top-0 right-0 z-20 flex p-2">
-											<button
-												type="button"
-												className="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-												onClick={closeModal}>
-												<Cross1Icon className='w-6 h-6' />
-											</button>
 										</div>
 									</Dialog.Panel>
 								</Transition.Child>

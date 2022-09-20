@@ -1,6 +1,6 @@
 import { convertToLocalDate } from '@/utils/convertToLocalTime';
 
-import Image from 'next/image';
+import Image from 'next/future/image';
 import Link from 'next/link';
 
 import type { PostData } from '@/models/post';
@@ -9,8 +9,8 @@ interface PostCardProps extends PostData { };
 
 const FeedPost = ({ id, title, createdAt, author, images }: PostCardProps) => {
 	const publishedAt = convertToLocalDate(new Date(createdAt));
-	const authorUrl = `/@${author.username}/`;
-	const postUrl = `${authorUrl}/${id}`;
+	const authorUrl = `/@${author.username}`;
+	const postUrl = `/@${author.username}/${id}`;
 
 	return (
 		<div className="">
@@ -29,7 +29,7 @@ const FeedPost = ({ id, title, createdAt, author, images }: PostCardProps) => {
 
 			<Link href={postUrl}>
 				<a className="overflow-hidden rounded-sm" >
-					<Image width={images[0].width} height={images[0].height} layout="responsive" alt={images[0].altText} src={images[0].url} />
+					<Image className="w-full h-auto" sizes="100vw" placeholder="blur" blurDataURL={images[0].placeholderUrl} width={images[0].width} height={images[0].height} alt={images[0].altText || ""} src={images[0].url} />
 				</a>
 			</Link>
 

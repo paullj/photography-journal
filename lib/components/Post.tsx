@@ -1,14 +1,14 @@
 import { ImageData, ImageMetadata } from "@/models/image";
-import Image from "next/image";
+import Image from "next/future/image";
 import ImageMetadataComponent from "./ImageMetadata";
 
 type PostProps = ImageData & ImageMetadata & { onClick?: () => void };
 
-const Post = ({ width, height, caption, altText, url, onClick, ...metadata }: PostProps) => {
+const Post = ({ width, height, caption, altText, url, placeholderUrl, onClick, ...metadata }: PostProps) => {
 	return (
 		<div className="">
 			<button className="relative w-full h-full" type="button" onClick={onClick}>
-				<Image src={url} alt={altText} width={width} height={height} layout="responsive" />
+				<Image className="w-full h-auto" sizes="100vw" placeholder="blur" blurDataURL={placeholderUrl} width={width} height={height} alt={altText || ""} src={url} />
 			</button>
 			<div className="flex flex-col mt-2 sm:flex-row">
 				<div className="flex-grow text-gray-500">
