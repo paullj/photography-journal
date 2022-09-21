@@ -54,6 +54,7 @@ const handler: NextApiHandler = withApiAuth(
 
 						const imagePromises = zippedFiles.map(
 							async ({ file, data, metadata, caption, altText }, i) => {
+								console.log("Image upload promise");
 								return uploader
 									.upload(file.filepath, {
 										upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
@@ -67,7 +68,7 @@ const handler: NextApiHandler = withApiAuth(
 										],
 									})
 									.then((uploadResponse) => {
-										console.log(uploadResponse);
+										console.log("upload finished", uploadResponse);
 
 										return supabase.from("images").insert({
 											owner_id: sessionId,
@@ -90,7 +91,7 @@ const handler: NextApiHandler = withApiAuth(
 
 						Promise.all(imagePromises)
 							.then((response) => {
-								console.log(response);
+								console.log("supabase insert finished", response);
 
 								return supabase
 									.from("posts")
@@ -109,6 +110,7 @@ const handler: NextApiHandler = withApiAuth(
 									})
 									.eq("id", postResponse.data!.id);
 							});
+
 						resolve(postResponse?.data?.id);
 					});
 				}).catch((error) => {
