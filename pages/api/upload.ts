@@ -86,6 +86,9 @@ const handler: NextApiHandler = withApiAuth(
 						);
 
 						Promise.all(imagePromises)
+							.catch((error) => {
+								console.log(error);
+							})
 							.then(() =>
 								supabase
 									.from("posts")
@@ -103,7 +106,7 @@ const handler: NextApiHandler = withApiAuth(
 									})
 									.eq("id", postResponse.data!.id);
 							});
-
+						console.log("all good with majign new post");
 						resolve(postResponse?.data?.id);
 					});
 				}).catch((error) => {
