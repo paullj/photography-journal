@@ -53,8 +53,8 @@ const handler: NextApiHandler = withApiAuth(
 							.single();
 
 						const imagePromises = zippedFiles.map(
-							async ({ file, data, metadata, caption, altText }, i) =>
-								uploader
+							async ({ file, data, metadata, caption, altText }, i) => {
+								return uploader
 									.upload(file.filepath, {
 										upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
 										allowed_formats: [
@@ -66,8 +66,10 @@ const handler: NextApiHandler = withApiAuth(
 											"tiff",
 										],
 									})
-									.then((uploadResponse) =>
-										supabase.from("images").insert({
+									.then((uploadResponse) => {
+										console.log(uploadResponse);
+
+										return supabase.from("images").insert({
 											owner_id: sessionId,
 											post_id: postResponse.data!.id,
 											post_order: i,
@@ -81,24 +83,25 @@ const handler: NextApiHandler = withApiAuth(
 											iso_number: metadata.iso,
 											f_stop: metadata.f,
 											exposure_time: metadata.exposureTime,
-										})
-									)
+										});
+									});
+							}
 						);
 
 						Promise.all(imagePromises)
-							.catch((error) => {
-								console.log(error);
-							})
-							.then(() =>
-								supabase
+							.then((response) => {
+								console.log(response);
+
+								return supabase
 									.from("posts")
 									.update({
 										upload_status: "done",
 									})
-									.eq("id", postResponse.data!.id)
-							)
+									.eq("id", postResponse.data!.id);
+							})
 							.catch((error) => {
 								console.log(error);
+
 								supabase
 									.from("posts")
 									.update({
@@ -106,7 +109,6 @@ const handler: NextApiHandler = withApiAuth(
 									})
 									.eq("id", postResponse.data!.id);
 							});
-						console.log("all good with majign new post");
 						resolve(postResponse?.data?.id);
 					});
 				}).catch((error) => {
