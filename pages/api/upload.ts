@@ -58,14 +58,7 @@ const handler: NextApiHandler = withApiAuth(
 								return uploader
 									.upload(file.filepath, {
 										upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
-										allowed_formats: [
-											"gif",
-											"png",
-											"jpg",
-											"heic",
-											"heic",
-											"tiff",
-										],
+										allowed_formats: ["gif", "png", "jpg", "heic", "tiff"],
 									})
 									.then((uploadResponse) => {
 										console.log("upload finished", uploadResponse);
@@ -85,11 +78,14 @@ const handler: NextApiHandler = withApiAuth(
 											f_stop: metadata.f,
 											exposure_time: metadata.exposureTime,
 										});
+									})
+									.catch((error) => {
+										console.log(error);
 									});
 							}
 						);
 
-						Promise.all(imagePromises)
+						await Promise.all(imagePromises)
 							.then((response) => {
 								console.log("supabase insert finished", response);
 
