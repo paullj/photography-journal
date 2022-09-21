@@ -27,11 +27,13 @@
   - [x] set username
   - [x] set name 
 	- [ ] set profile picture
+	- [ ] set bio
   - [ ] set social links?
+		- instagram
+		- website
 
 - dark mode
 - lazy load images and load different resolutions
 
 ## Bugs
-- image order is wrong
 - redirect to welcome page when login

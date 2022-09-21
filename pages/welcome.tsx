@@ -5,12 +5,13 @@ import { useForm } from "react-hook-form";
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 import Head from 'next/head'
-import Layout from '@/layouts/DefaultLayout'
 import Input from '@/components/shared/Input'
 import Button from '@/components/shared/Button'
 import Avatar from '@/components/shared/Avatar'
+import Centered from '@/layouts/Centered';
 
 import type { NextPageWithLayout } from './_app'
+import TextInput from '@/components/shared/Input';
 
 interface WelcomeProps { }
 
@@ -76,34 +77,42 @@ const WelcomePage: NextPageWithLayout<WelcomeProps> = (props) => {
 			<Head>
 				<title>/</title>
 			</Head>
-			<div className='items-center justify-center h-full sm:flex'>
-				<div className='sm:w-2/3 md:max-w-md'>
+			<div className='mt-8'>
+				<div className='mb-8'>
 					<Avatar></Avatar>
-					<form onSubmit={handleSubmitForm}>
-						<div className='flex items-center space-x-0.5'>
+				</div>
+				<div className='mb-8'>
+					<h1 className='mb-1 text-xl font-semibold'>Welcome</h1>
+					<p>Enter your username and full name for your public profile.</p>
+				</div>
+				<div>
+					<form onSubmit={handleSubmitForm} className="w-full">
+						<div className='flex items-center space-x-0.5 px-1 border-4 rounded-md'>
 							<span className="inline">@</span>
 							<div className="w-full grow">
-								<Input label='username' id='username' placeholder='username' {...register("username", { required: true, maxLength: 32 })} />
+								<TextInput label='username' id='username' placeholder='username' {...register("username", { required: true, maxLength: 32 })} />
 							</div>
 						</div>
-						<Input label='name' id='name' placeholder='Full Name' {...register("name", { required: true })} />
-						<Button type="submit" className='flex justify-center w-full mt-4' disabled={loading}>
+						<div className='flex items-center px-1 mt-2 border-4 rounded-md'>
+							<Input label='name' id='name' placeholder='Full Name' {...register("name", { required: true })} />
+						</div>
+						<Button type="submit" className='flex justify-center w-full mt-8' disabled={loading}>
 							<div className=''></div>
 							Next
 						</Button>
 					</form>
 				</div>
-			</div>
 
+			</div>
 		</>
 	)
 }
 
 WelcomePage.getLayout = (page) => {
 	return (
-		<Layout>
+		<Centered>
 			{page}
-		</Layout>
+		</Centered>
 	)
 }
 

@@ -72,5 +72,5 @@ export const middleware: NextMiddleware = async (request) => {
 };
 
 export const config = {
-	matcher: ["/", "/new", "/@:path*"],
+	matcher: ["/((?!api|_next|static|welcome|[\\w-]+\\.\\w+).*)"],
 };
