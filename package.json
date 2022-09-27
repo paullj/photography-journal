@@ -7,7 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"generate": "supabase gen types typescript --local > lib/database.t.ts"
+		"generate": "supabase gen types typescript --local > lib/database.d.ts"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.7.2",

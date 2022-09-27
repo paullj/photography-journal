@@ -31,7 +31,7 @@
 		}
 	
 		.item:nth-child(3n+2) {
-			@apply order-2 px-12;
+			@apply order-2 px-6;
 		}
 	
 		.item:nth-child(3n) {
@@ -57,7 +57,7 @@
 		@apply order-1 pr-16;}
 
 	.item:nth-child(3n+2) {
-		@apply order-2 px-16;
+		@apply order-2 px-8;
 	}
 
 	.item:nth-child(3n) {
